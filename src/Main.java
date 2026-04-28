@@ -3,10 +3,10 @@ public class Main {
 
         Tree<Integer> intTree = new Tree<>();
         
-        tree.add(5);
-        tree.add(2);
-        tree.add(8);
-        tree.add(1);
+        intTree.add(5);
+        intTree.add(2);
+        intTree.add(8);
+        intTree.add(1);
 
         System.out.println("Элементы:");
         for (Integer i : intTree) {
