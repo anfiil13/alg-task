@@ -41,7 +41,7 @@ public class Tree<T extends Comparable<T>> implements Collection<T> {
         if (node == null) return null;
 
         int cmp = value.compareTo(node.value);
-        
+
         if (cmp < 0) {
             node.left = removeNode(node.left, value);
         } else if (cmp > 0) {
@@ -74,7 +74,6 @@ public class Tree<T extends Comparable<T>> implements Collection<T> {
 
     private void inorder(Node<T> node, List<T> list) {
         if (node == null) return;
-
         inorder(node.left, list);
         list.add(node.value);
         inorder(node.right, list);
@@ -96,11 +95,38 @@ public class Tree<T extends Comparable<T>> implements Collection<T> {
         size = 0;
     }
 
-    @Override public boolean contains(Object o) { throw new UnsupportedOperationException(); }
-    @Override public Object[] toArray() { throw new UnsupportedOperationException(); }
-    @Override public <T1> T1[] toArray(T1[] a) { throw new UnsupportedOperationException(); }
-    @Override public boolean containsAll(Collection<?> c) { throw new UnsupportedOperationException(); }
-    @Override public boolean addAll(Collection<? extends Integer> c) { throw new UnsupportedOperationException(); }
-    @Override public boolean removeAll(Collection<?> c) { throw new UnsupportedOperationException(); }
-    @Override public boolean retainAll(Collection<?> c) { throw new UnsupportedOperationException(); }
+    @Override
+    public boolean contains(Object o) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Object[] toArray() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <U> U[] toArray(U[] a) {  // ← было T1, стало U
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean containsAll(Collection<?> c) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends T> c) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> c) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        throw new UnsupportedOperationException();
+    }
 }
