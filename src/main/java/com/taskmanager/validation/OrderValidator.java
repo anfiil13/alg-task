@@ -1,6 +1,7 @@
 package com.taskmanager.validation;
 
-import com.taskmanager.annotations.Validate;
+import com.taskmanager.annotations.NotNull;
+import com.taskmanager.annotations.NotEmpty;
 
 import java.lang.reflect.Field;
 
@@ -14,18 +15,21 @@ public class OrderValidator {
         Class<?> clazz = object.getClass();
 
         for (Field field : clazz.getDeclaredFields()) {
-            if (field.isAnnotationPresent(Validate.class)) {
-                field.setAccessible(true);
-                Validate annotation = field.getAnnotation(Validate.class);
-                Object value = field.get(object);
+            field.setAccessible(true);
+            Object value = field.get(object);
 
-                if (annotation.notNull() && value == null) {
+            if (field.isAnnotationPresent(NotNull.class)) {
+                NotNull annotation = field.getAnnotation(NotNull.class);
+                if (value == null) {
                     throw new IllegalArgumentException(annotation.message());
                 }
+            }
 
-                if (annotation.notEmpty() && value instanceof String) {
+            if (field.isAnnotationPresent(NotEmpty.class)) {
+                NotEmpty annotation = field.getAnnotation(NotEmpty.class);
+                if (value instanceof String) {
                     String strValue = (String) value;
-                    if (strValue.isEmpty()) {
+                    if (strValue != null && strValue.isEmpty()) {
                         throw new IllegalArgumentException(annotation.message());
                     }
                 }
