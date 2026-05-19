@@ -25,7 +25,14 @@ public class OrderProcessor {
                 System.out.println(Thread.currentThread().getName() + " processing order: " + order.getId());
 
                 order.setStatus(OrderStatus.PROCESSING);
-                Thread.sleep(order.getPriority() == OrderType.Priority.URGENT ? 500 : 1000);
+
+                if (order.getPriority() == OrderType.Priority.URGENT) {
+                    System.out.println("  -> URGENT order, processing faster...");
+                    Thread.sleep(500);
+                } else {
+                    System.out.println("  -> Normal order, processing...");
+                    Thread.sleep(1000);
+                }
 
                 order.setStatus(OrderStatus.COMPLETED);
                 processedOrders.put(order.getId(), order);
