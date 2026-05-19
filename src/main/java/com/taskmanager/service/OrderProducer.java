@@ -21,12 +21,22 @@ public class OrderProducer implements Runnable {
     public void run() {
         try {
             for (int i = 1; i <= orderCount && running.get(); i++) {
-                OrderType.Priority priority = i % 3 == 0 ? OrderType.Priority.URGENT : OrderType.Priority.NORMAL;
+                OrderType.Priority priority;
+                if (i % 3 == 0) {
+                    priority = OrderType.Priority.URGENT;
+                } else {
+                    priority = OrderType.Priority.NORMAL;
+                }
+
                 Order order = new Order("Customer" + i, "Product" + i, priority);
 
-                System.out.println("Produced: " + order);
-                orderQueue.put(order);
+                if (order.getPriority() == OrderType.Priority.URGENT) {
+                    System.out.println("Produced URGENT: " + order);
+                } else {
+                    System.out.println("Produced: " + order);
+                }
 
+                orderQueue.put(order);
                 Thread.sleep(200);
             }
 
