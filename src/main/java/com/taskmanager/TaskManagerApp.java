@@ -15,6 +15,11 @@ public class TaskManagerApp {
     public static void main(String[] args) {
         System.out.println("=== Task Manager Application Started ===\n");
 
+        System.out.println("Available order priorities (defined by @OrderType):");
+        System.out.println("  - " + OrderType.Priority.URGENT);
+        System.out.println("  - " + OrderType.Priority.NORMAL);
+        System.out.println();
+
         BlockingQueue<Order> orderQueue = new LinkedBlockingQueue<>();
         ConcurrentHashMap<String, Order> processedOrders = new ConcurrentHashMap<>();
 
@@ -44,6 +49,14 @@ public class TaskManagerApp {
 
         System.out.println("\n=== Processing Results ===");
         System.out.println("Total processed orders: " + processedOrders.size());
+
+        long urgentCount = processedOrders.values().stream()
+                .filter(o -> o.getPriority() == OrderType.Priority.URGENT)
+                .count();
+        long normalCount = processedOrders.size() - urgentCount;
+
+        System.out.println("Urgent orders processed: " + urgentCount);
+        System.out.println("Normal orders processed: " + normalCount);
         System.out.println("\nProcessed Orders:");
         processedOrders.forEach((id, order) ->
                 System.out.println("  " + order));
