@@ -1,20 +1,23 @@
 package com.taskmanager.model;
 
+import com.taskmanager.annotations.NotNull;
+import com.taskmanager.annotations.NotEmpty;
 import com.taskmanager.annotations.OrderType;
-import com.taskmanager.annotations.Validate;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
 public class Order {
-    @Validate(notNull = true, message = "Order ID cannot be null")
+    @NotNull(message = "Order ID cannot be null")
     private String id;
 
-    @Validate(notNull = true, notEmpty = true, message = "Customer name cannot be null or empty")
+    @NotNull(message = "Customer name cannot be null")
+    @NotEmpty(message = "Customer name cannot be empty")
     private String customerName;
 
-    @Validate(notNull = true, notEmpty = true, message = "Product cannot be null or empty")
+    @NotNull(message = "Product cannot be null")
+    @NotEmpty(message = "Product cannot be empty")
     private String product;
 
     @OrderType
